@@ -1,16 +1,22 @@
 from bs4 import BeautifulSoup
 import requests
 from time import sleep
+import urllib.request
 
 
-# test link https://www.reddit.com/r/ProgrammerHumor/comments/j0uoo1/the_struggle_gets_real_when_the_family_gets/
-
-# Sort by: Best, Top, New, Controversial, Old, Q&A and grabs the first top element (first top comment)
-
-
+# Need Regex to check if valid link and request 200 to check if link is working
 def ask_for_link():
     url = input('Please input the url: ')
-    print(url)
+    print("Debug: {}".format(url))
+
+    check_response = requests.get(url)
+
+    # For testing check for page request will be probably implemented
+    if check_response.status_code == 200:
+        print("Reached!")
+    else:
+        print("Failed")
+
     source = requests.get(url)
     soup = BeautifulSoup(source.content, 'lxml')
 
